@@ -87,6 +87,7 @@ def generate_and_display_numbers(func, *args):
             </head>
             <body></body>
             </html>
+        """, height=0)
 
 # 🌐 Streamlit UI
 st.title("🎯 로또 번호 추천기")
