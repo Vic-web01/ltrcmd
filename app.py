@@ -3,7 +3,7 @@ import random
 import pandas as pd
 import streamlit as st
 
-# 📁 데이터 경로 설정 (GitHub-compatible, 상대경로)
+# 📁 데이터 경로 설정
 base_dir = os.path.dirname(__file__)
 file_path = os.path.join(base_dir, "lotto_results.csv")
 
@@ -18,7 +18,7 @@ def load_lotto_data():
 
 df = load_lotto_data()
 
-# 🚨 유효성 검사 함수
+# 🚨 유효성 검사
 def validate_numbers(numbers, label):
     if any(n < 1 or n > 45 for n in numbers):
         st.error(f"❌ {label}는 1~45 범위의 숫자여야 합니다.")
@@ -29,8 +29,6 @@ def validate_numbers(numbers, label):
     return True
 
 # 🧠 번호 생성 함수들
-
-# 1️⃣ 고정수/제외수 + 랜덤 추천
 def generate_with_fixed_and_excluded(fixed_nums, exclude_nums):
     pool = [n for n in range(1, 46) if n not in fixed_nums and n not in exclude_nums]
     remaining = 6 - len(fixed_nums)
@@ -42,19 +40,17 @@ def generate_with_fixed_and_excluded(fixed_nums, exclude_nums):
         return None
     return sorted(fixed_nums + random.sample(pool, remaining))
 
-# 2️⃣ 최근 5회 패턴 기반 추천
 def recent_pattern_based(df):
     if df.empty:
         return []
-    recent_nums = df.iloc[-5:, 1:7].values.flatten()  # 번호1~6만 사용
+    recent_nums = df.iloc[-5:, 1:7].values.flatten()
     freq = pd.Series(recent_nums).value_counts()
     weighted = freq.index.tolist()
     while len(weighted) < 45:
         weighted.append(random.randint(1, 45))
-    weighted = list(dict.fromkeys(weighted))  # 중복 제거 후 순서 유지
+    weighted = list(dict.fromkeys(weighted))
     return sorted(random.sample(weighted, 6))
 
-# 3️⃣ 통계 필터 기반 추천 (홀짝, 고저, 합계 기준)
 def stat_filter_recommend():
     while True:
         nums = random.sample(range(1, 46), 6)
@@ -64,11 +60,27 @@ def stat_filter_recommend():
         if 2 <= odd <= 4 and 2 <= high <= 4 and 100 <= total <= 200:
             return sorted(nums)
 
-# 4️⃣ 무작위 추천
 def pure_random():
     return sorted(random.sample(range(1, 46), 6))
 
-# 🌐 Streamlit UI 구성
+# 🌐 외부 사이트 URL
+external_url = "https://lotto.infostein.com/%eb%a1%9c%eb%98%90%eb%8b%b9%ec%b2%a8%eb%b2%88%ed%98%b8%ec%a1%b0%ed%9a%8c-%ec%a0%84%ec%b2%b4%eb%b3%b4%ea%b8%b0-%ed%91%9c%ed%98%95%ec%8b%9d/"  # ← 광고나 워드프레스 링크 입력
+
+# 🎯 번호 생성 결과 & 광고창 열기 함수
+def generate_and_display_numbers(func, *args):
+    st.markdown("🎯 **추천 번호 3세트:**")
+    for i in range(3):
+        result = func(*args) if args else func()
+        if result:
+            st.success(f"추천 {i+1}: {result}")
+    # 광고 페이지 새 창 열기
+    st.markdown(f"""
+    <script>
+        window.open("{external_url}", "_blank");
+    </script>
+    """, unsafe_allow_html=True)
+
+# 🌐 Streamlit UI
 st.title("🎯 로또 번호 추천기")
 
 option = st.selectbox("번호 생성 방식을 선택하세요", [
@@ -78,7 +90,7 @@ option = st.selectbox("번호 생성 방식을 선택하세요", [
     "4. 무작위 추천"
 ])
 
-# 옵션별 입력 및 실행
+# 각 옵션 처리
 if option.startswith("1"):
     fixed = st.text_input("🔒 고정수 입력 (예: 3,12,21)").strip()
     exclude = st.text_input("🚫 제외수 입력 (예: 4,10)").strip()
@@ -89,36 +101,22 @@ if option.startswith("1"):
 
         if validate_numbers(fixed_nums, "고정수") and validate_numbers(exclude_nums, "제외수"):
             if st.button("번호 생성"):
-                st.markdown("🎯 **추천 번호 3세트:**")
-                for i in range(3):
-                    result = generate_with_fixed_and_excluded(fixed_nums, exclude_nums)
-                    if result:
-                        st.success(f"추천 {i+1}: {result}")
+                generate_and_display_numbers(generate_with_fixed_and_excluded, fixed_nums, exclude_nums)
     except:
         st.error("❌ 숫자는 쉼표로 구분된 형식이어야 합니다. 예: 3,8,21")
 
 elif option.startswith("2"):
     if st.button("번호 생성"):
-        st.markdown("🎯 **추천 번호 3세트:**")
-        for i in range(3):
-            result = recent_pattern_based(df)
-            if result:
-                st.success(f"추천 {i+1}: {result}")
+        generate_and_display_numbers(recent_pattern_based, df)
 
 elif option.startswith("3"):
-    st.write("📊 기준: 홀짝 비율(2:4에서 4:2), 고저 비율(합계 100에서 200 사이)")
+    st.write("📊 기준: 홀짝 비율(2:4~4:2), 고저 비율(합계 100~200)")
     if st.button("번호 생성"):
-        st.markdown("🎯 **추천 번호 3세트:**")
-        for i in range(3):
-            result = stat_filter_recommend()
-            st.success(f"추천 {i+1}: {result}")
+        generate_and_display_numbers(stat_filter_recommend)
 
 elif option.startswith("4"):
     if st.button("번호 생성"):
-        st.markdown("🎯 **추천 번호 3세트:**")
-        for i in range(3):
-            result = pure_random()
-            st.success(f"추천 {i+1}: {result}")
+        generate_and_display_numbers(pure_random)
 
 # ℹ️ 유의사항 표시
 st.markdown("---")
