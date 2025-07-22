@@ -74,11 +74,9 @@ def generate_and_display_numbers(func, *args):
         if result:
             st.success(f"추천 {i+1}: {result}")
     # 광고 페이지 새 창 열기
-    st.markdown(f"""
-    <script>
-        window.open("{external_url}", "_blank");
-    </script>
-    """, unsafe_allow_html=True)
+st.markdown(f"""
+    👉 [외부 링크 열기]({external_url}){{:target="_blank"}}
+""", unsafe_allow_html=True)
 
 # 🌐 Streamlit UI
 st.title("🎯 로또 번호 추천기")
