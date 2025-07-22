@@ -77,15 +77,10 @@ def generate_and_display_numbers(func, *args):
             st.success(f"추천 {i+1}: {result}")
     # 광고 페이지 새 창 열기
     components.html(f"""
-        <html>
-        <head>
-            <script type="text/javascript">
-                window.open("{url1}", "_blank");
-                window.open("{url2}", "_blank");
-            </script>
-        </head>
-        <body></body>
-        </html>
+        <script>
+            window.open('{url1}', '_blank');
+            window.location.reload();
+        </script>
     """, height=0)
 
 # 🌐 Streamlit UI
