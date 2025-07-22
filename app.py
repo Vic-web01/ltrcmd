@@ -4,13 +4,15 @@ import pandas as pd
 import streamlit as st
 
 # 📁 데이터 경로 설정
-folder_path = "D:/VSCode/500B/lotto/data/"
-file_name = "lotto_results.csv"
-file_path = os.path.join(folder_path, file_name)
+base_dir = os.path.dirname(__file__)
+file_path = os.path.join(base_dir, "ltrcmd", "lotto_results.csv")
 
 # 📊 데이터 불러오기
 @st.cache_data
 def load_lotto_data():
+    if not os.path.exists(file_path):
+        st.error(f"❌ CSV 파일이 존재하지 않습니다: {file_path}")
+        return pd.DataFrame()
     df = pd.read_csv(file_path)
     return df
 
