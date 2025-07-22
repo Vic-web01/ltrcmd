@@ -106,7 +106,7 @@ elif option.startswith("2"):
         generate_and_display_numbers(recent_pattern_based, df)
 
 elif option.startswith("3"):
-    st.write("📊 기준: 홀짝 비율(2:4~4:2), 고저 비율(합계 100~200)")
+    st.write("📊 기준: 홀짝 비율(2:4,4:2), 고저 비율(합계 100부터 200사이)")
     if st.button("번호 생성"):
         generate_and_display_numbers(stat_filter_recommend)
 
