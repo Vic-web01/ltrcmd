@@ -66,7 +66,7 @@ def pure_random():
 
 # 🌐 외부 사이트 URL
 url1 = "https://lotto.infostein.com"  # ← 광고나 워드프레스 링크 입력
-#url2 = "https://lotto-infostein.streamlit.app"
+url2 = "https://lotto-infostein.streamlit.app"
 
 # 🎯 번호 생성 결과 & 광고창 열기 함수
 def generate_and_display_numbers(func, *args):
@@ -77,13 +77,19 @@ def generate_and_display_numbers(func, *args):
             st.success(f"추천 {i+1}: {result}")
 
     # 새 창 열기: 단 1회만 실행
-    if "ad_opened" not in st.session_state:
-        st.session_state.ad_opened = True
-        components.html(f"""
-            <script>
-                window.open('{url1}', '_blank');
-            </script>
-        """, height=0)
+    # if "ad_opened" not in st.session_state:
+    #     st.session_state.ad_opened = True
+    #     components.html(f"""
+    #         <script>
+    #             window.open('{url1}', '_blank');
+    #         </script>
+    #     """, height=0)
+    
+    st.markdown("""
+    <a href="https://lotto.infostein.com" target="_blank" onclick="window.open('https://lotto-infostein.streamlit.app','_blank')">
+    👉 여기 클릭하면 두 개 창이 동시에 열립니다
+    </a>
+    """, unsafe_allow_html=True)
 
 # 🌐 Streamlit UI
 st.title("🎯 로또 번호 추천기")
