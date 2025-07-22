@@ -74,12 +74,14 @@ def generate_and_display_numbers(func, *args):
         if result:
             st.success(f"추천 {i+1}: {result}")
     # 광고 페이지 새 창 열기
-    st.markdown(
-        f'<meta http-equiv="refresh" content="1;URL=." />'
-        f'<a href="{external_url}" target="_blank">👉 여기를 클릭하면 새 창에서 열립니다.</a>',
-        unsafe_allow_html=True
-    )
-    st.info("1초 후 페이지가 자동 새로고침됩니다.")
+    if st.button("🌐 외부 페이지 열기"):
+        # 외부 링크 새 창으로 열기 (사용자 클릭 필요)
+        st.markdown(
+            f'<meta http-equiv="refresh" content="1;URL=." />'
+            f'<a href="{external_url}" target="_blank">👉 여기를 클릭하면 새 창에서 열립니다.</a>',
+            unsafe_allow_html=True
+        )
+        st.info("1초 후 페이지가 자동 새로고침됩니다.")
 
 
 # 🌐 Streamlit UI
