@@ -5,7 +5,7 @@ import streamlit as st
 
 # 📁 데이터 경로 설정
 base_dir = os.path.dirname(__file__)
-file_path = os.path.join(base_dir, "ltrcmd", "lotto_results.csv")
+file_path = os.path.join(base_dir, "lotto_results.csv")
 
 # 📊 데이터 불러오기
 @st.cache_data
