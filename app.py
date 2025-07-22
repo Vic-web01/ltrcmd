@@ -2,6 +2,7 @@ import os
 import random
 import pandas as pd
 import streamlit as st
+import streamlit.components.v1 as components
 
 # 📁 데이터 경로 설정
 base_dir = os.path.dirname(__file__)
@@ -64,8 +65,8 @@ def pure_random():
     return sorted(random.sample(range(1, 46), 6))
 
 # 🌐 외부 사이트 URL
-external_url = "https://lotto.infostein.com"  # ← 광고나 워드프레스 링크 입력
-external_url_1 = "https://lotto-infostein.streamlit.app"
+url1 = "https://lotto.infostein.com"  # ← 광고나 워드프레스 링크 입력
+url2 = "https://lotto-infostein.streamlit.app"
 
 # 🎯 번호 생성 결과 & 광고창 열기 함수
 def generate_and_display_numbers(func, *args):
@@ -75,12 +76,17 @@ def generate_and_display_numbers(func, *args):
         if result:
             st.success(f"추천 {i+1}: {result}")
     # 광고 페이지 새 창 열기
-    st.markdown(f'<meta http-equiv="refresh" content="10;URL={external_url}" />',unsafe_allow_html=True)
-    st.info("10초 후 홈페이지로 자동 새로고침됩니다.")
-    # st.markdown(f'<meta http-equiv="refresh" content="5;URL=." />',unsafe_allow_html=True)
-    st.markdown('<a href="{external_url_1}" target="_blank">👉 여기를 클릭하면 새 창에서 열립니다.</a>',unsafe_allow_html=True)
-    st.info("5초 후 페이지가 자동 새로고침됩니다.")
-
+    if st.button("🔗 새 창으로 두 페이지 열기"):
+        components.html(f"""
+            <html>
+            <head>
+                <script type="text/javascript">
+                    window.open("{url1}", "_blank");
+                    window.open("{url2}", "_blank");
+                </script>
+            </head>
+            <body></body>
+            </html>
 
 # 🌐 Streamlit UI
 st.title("🎯 로또 번호 추천기")
