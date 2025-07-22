@@ -84,7 +84,7 @@ def generate_and_display_numbers(func, *args):
                 window.open('{url1}', '_blank');
             </script>
         """, height=0)
-    st.warning("📌 팝업 차단을 해제해 주세요.\n\n이 사이트는 새 창으로 정보를 열 수 있습니다.")
+    st.warning("📌 새 창이 뜨지 않으면, 팝업 차단 해제해 주세요.")
 
     
 # 🌐 Streamlit UI
