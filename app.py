@@ -76,21 +76,17 @@ def generate_and_display_numbers(func, *args):
         if result:
             st.success(f"추천 {i+1}: {result}")
 
-    # 새 창 열기: 단 1회만 실행
-    # if "ad_opened" not in st.session_state:
-    #     st.session_state.ad_opened = True
-    #     components.html(f"""
-    #         <script>
-    #             window.open('{url1}', '_blank');
-    #         </script>
-    #     """, height=0)
-    
-    st.markdown("""
-    <a href="https://lotto.infostein.com" target="_blank" onclick="window.open('https://lotto-infostein.streamlit.app','_blank')">
-    👉 여기 클릭하면 두 개 창이 동시에 열립니다
-    </a>
-    """, unsafe_allow_html=True)
+    새 창 열기: 단 1회만 실행
+    if "ad_opened" not in st.session_state:
+        st.session_state.ad_opened = True
+        components.html(f"""
+            <script>
+                window.open('{url1}', '_blank');
+            </script>
+        """, height=0)
+    st.warning("📌 팝업 차단을 해제해 주세요.\n\n이 사이트는 새 창으로 정보를 열 수 있습니다.")
 
+    
 # 🌐 Streamlit UI
 st.title("🎯 로또 번호 추천기")
 
