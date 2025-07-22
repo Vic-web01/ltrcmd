@@ -74,8 +74,15 @@ def generate_and_display_numbers(func, *args):
         if result:
             st.success(f"추천 {i+1}: {result}")
     # 광고 페이지 새 창 열기
-    st.markdown(f"[👉 여기를 클릭하여 외부 페이지 열기]({external_url})", unsafe_allow_html=True)
-    st.experimental_rerun()  # 현재 페이지 새로고침
+    if st.button("🌐 외부 페이지 열기"):
+        st.markdown(f"[👉 새 창으로 열기]({external_url})", unsafe_allow_html=True)
+
+        # 안전하게 새로고침 시도
+        try:
+            st.rerun()
+        except:
+            st.warning("페이지를 수동으로 새로고침 해주세요.")
+
 
 # 🌐 Streamlit UI
 st.title("🎯 로또 번호 추천기")
