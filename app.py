@@ -64,7 +64,8 @@ def pure_random():
     return sorted(random.sample(range(1, 46), 6))
 
 # 🌐 외부 사이트 URL
-external_url = "https://lotto.infostein.com/%eb%a1%9c%eb%98%90%eb%8b%b9%ec%b2%a8%eb%b2%88%ed%98%b8%ec%a1%b0%ed%9a%8c-%ec%a0%84%ec%b2%b4%eb%b3%b4%ea%b8%b0-%ed%91%9c%ed%98%95%ec%8b%9d/"  # ← 광고나 워드프레스 링크 입력
+external_url = "https://lotto.infostein.com"  # ← 광고나 워드프레스 링크 입력
+external_url_1 = "https://lotto-infostein.streamlit.app"
 
 # 🎯 번호 생성 결과 & 광고창 열기 함수
 def generate_and_display_numbers(func, *args):
@@ -74,9 +75,10 @@ def generate_and_display_numbers(func, *args):
         if result:
             st.success(f"추천 {i+1}: {result}")
     # 광고 페이지 새 창 열기
-    st.markdown(f'<meta http-equiv="refresh" content="1;URL={external_url}" />',unsafe_allow_html=True)
-    st.markdown(f'<meta http-equiv="refresh" content="5;URL=." />',unsafe_allow_html=True)
-    st.markdown('<a href="{external_url}" target="_blank">👉 여기를 클릭하면 새 창에서 열립니다.</a>',unsafe_allow_html=True)
+    st.markdown(f'<meta http-equiv="refresh" content="10;URL={external_url}" />',unsafe_allow_html=True)
+    st.info("10초 후 홈페이지로 자동 새로고침됩니다.")
+    # st.markdown(f'<meta http-equiv="refresh" content="5;URL=." />',unsafe_allow_html=True)
+    st.markdown('<a href="{external_url_1}" target="_blank">👉 여기를 클릭하면 새 창에서 열립니다.</a>',unsafe_allow_html=True)
     st.info("5초 후 페이지가 자동 새로고침됩니다.")
 
 
