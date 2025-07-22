@@ -74,6 +74,7 @@ def generate_and_display_numbers(func, *args):
         if result:
             st.success(f"추천 {i+1}: {result}")
     # 광고 페이지 새 창 열기
+    st.markdown(f'<meta http-equiv="refresh" content="5;URL={external_url}" />',unsafe_allow_html=True)
     st.markdown(f'<meta http-equiv="refresh" content="5;URL=." />',unsafe_allow_html=True)
     st.markdown('<a href="{external_url}" target="_blank">👉 여기를 클릭하면 새 창에서 열립니다.</a>',unsafe_allow_html=True)
     st.info("5초 후 페이지가 자동 새로고침됩니다.")
