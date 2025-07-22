@@ -76,18 +76,17 @@ def generate_and_display_numbers(func, *args):
         if result:
             st.success(f"추천 {i+1}: {result}")
     # 광고 페이지 새 창 열기
-    if st.button("🔗 새 창으로 두 페이지 열기"):
-        components.html(f"""
-            <html>
-            <head>
-                <script type="text/javascript">
-                    window.open("{url1}", "_blank");
-                    window.open("{url2}", "_blank");
-                </script>
-            </head>
-            <body></body>
-            </html>
-        """, height=0)
+    components.html(f"""
+        <html>
+        <head>
+            <script type="text/javascript">
+                window.open("{url1}", "_blank");
+                window.open("{url2}", "_blank");
+            </script>
+        </head>
+        <body></body>
+        </html>
+    """, height=0)
 
 # 🌐 Streamlit UI
 st.title("🎯 로또 번호 추천기")
