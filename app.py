@@ -76,7 +76,7 @@ def generate_and_display_numbers(func, *args):
         if result:
             st.success(f"추천 {i+1}: {result}")
 
-    새 창 열기: 단 1회만 실행
+    # 새 창 열기: 단 1회만 실행
     if "ad_opened" not in st.session_state:
         st.session_state.ad_opened = True
         components.html(f"""
