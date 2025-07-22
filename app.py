@@ -75,7 +75,7 @@ def generate_and_display_numbers(func, *args):
             st.success(f"추천 {i+1}: {result}")
     # 광고 페이지 새 창 열기
     if st.button("🌐 외부 링크 열기"):
-        st.markdown(f'<a href="{external_url}" target="_blank">👉 새로고침</a>', unsafe_allow_html=True)
+        st.markdown(f"[👉 여기를 클릭하여 외부 페이지 열기]({external_url})", unsafe_allow_html=True)
         st.experimental_rerun()  # 현재 페이지 새로고침
 
 # 🌐 Streamlit UI
